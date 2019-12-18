@@ -56,10 +56,10 @@ RUN yum update -y && yum install -y --enablerepo=epel \
 	asciidoc \
 	apr-devel \
 	cpp \
-#	c++ \
+#       c++ \
 	cmake \
-#	dblatex  \
-#	doxygen \
+#       dblatex  \
+#       doxygen \
 	epel-rpm-macros \
 	gcc \
 	graphviz \
@@ -72,18 +72,18 @@ RUN yum update -y && yum install -y --enablerepo=epel \
 	python2-devel \
 	python2-virtualenv \
 	python2-setuptools \
-#	python2-cffi \
-    python2-pip \
+#       python2-cffi \
+        python2-pip \
   	python2-jinja2 \
- # 	python2-sphinx \
-    source-highlight \
-    rpm \
+#       python2-sphinx \
+        source-highlight \
+        rpm \
 	valgrind \
 	yum-utils \
 	&& yum clean all
 
 RUN yum update -y && yum install -y --enablerepo=epel \
-#	ganglia-devel \
+#       ganglia-devel \
 	libconfuse-devel \
 	mock \
 	&& yum clean all
@@ -201,22 +201,22 @@ RUN yum update -y \
 	readline-devel \
 	tk-devel \
 	gdbm-devel \
-#	db4-devel \
-#	libpcap-devel \
+#       db4-devel \
+#       libpcap-devel \
 	xz-devel \
 	expat-devel \
 	wget \
-    clang \
-    llvm \
-    numactl-devel \
-    check-devel \
-    check \
-    boost \
-    boost-devel \
-    mbedtls-devel \
-    xmlstarlet \
- #   centos-release-scl \
-    yamllint \
+        clang \
+        llvm \
+        numactl-devel \
+        check-devel \
+        check \
+        boost \
+        boost-devel \
+        mbedtls-devel \
+        xmlstarlet \
+#       centos-release-scl \
+        yamllint \
 	&& yum clean all
 
 # Python 2.7.13:
@@ -248,60 +248,90 @@ ADD files/lf-update-java-alternatives /usr/local/bin/lf-update-java-alternatives
 RUN chmod 755 /usr/local/bin/lf-update-java-alternatives
 RUN curl -s https://packagecloud.io/install/repositories/fdio/master/script.rpm.sh | sudo bash
 
-
-#include bits from csit-sut
-RUN yum install -y --enablerepo=epel \
-        # general tools
-#        bridge-utils \
-        cloud-init \
-        net-tools \
+# CSIT requirements
+RUN dnf config-manager --set-enabled PowerTools \
+    && yum install -y --enablerepo=epel \
+	curl \
+        git \
+        libpcap-devel \
+        openssh-clients \
         openssh-server \
+        net-tools \
         pciutils \
-        rsyslog \
-#        ssh \
+        python3-cffi \
+        python3-pip \
+        python3-setuptools \
+        socat \
+        sshpass \
+        strongswan \
         sudo \
         supervisor \
         tar \
-        vim \
-        wget \
-#        python-devel \
-        openssh-clients \
-        # csit requirements
-        gcc \
-        cmake3 \
-#        docker-1.13 \
-#        libpcap-devel \
-#        libpython-devel-2.7 \
-#        libpython-devel \
-#        openjdk-8-jdk-headless \
-#        python-pip \
-#        python-devel-2.7 \
-#        python-virtualenv \
-        socat \
-        strongswan \
-        unzip \
         tcpdump \
+        unzip \
+        vim \
+	virtualenv \
+        wget \
         zlib-devel \
-        # vpp requirements
-#        ca-certificates-2018 \
-#        libapr1 \
-        mbedtls \
-        mbedtls-devel \
-#        libnuma1 \
-#        python-cffi \
-#        python36-cffi \
-#        python-enum34 \
-        git \
-        sshpass \
-#        facter \
-#        devtoolset-7 \
-#        ninja-build \
-        python3-devel \
-#        python36-jsonschema \
-        selinux-policy \
-        selinux-policy-devel \
-#        mbedtls-debuginfo \
       	&& yum clean all
+
+# CSIT PIP pre-cache
+RUN pip3 install \
+        ecdsa==0.13.3 \
+        paramiko==2.6.0 \
+        pycrypto==2.6.1 \
+        pypcap==1.2.3 \
+        PyYAML==5.1.1 \
+        requests==2.22.0 \
+        robotframework==3.1.2 \
+        scapy==2.4.3 \
+        scp==0.13.2 \
+        ansible==2.7.8 \
+        dill==0.2.8.2 \
+        numpy==1.17.3 \
+        hdrhistogram==0.6.1 \
+        pandas==0.25.3 \
+        plotly==4.1.1 \
+        PTable==0.9.2 \
+        Sphinx==2.2.1 \
+        sphinx-rtd-theme==0.4.0 \
+        sphinxcontrib-programoutput==0.15 \
+        sphinxcontrib-robotdoc==0.11.0 \
+	ply==3.11 \
+        alabaster==0.7.12 \
+        Babel==2.7.0 \
+        bcrypt==3.1.7 \
+        certifi==2019.9.11 \
+        cffi==1.13.2 \
+        chardet==3.0.4 \
+        cryptography==2.8 \
+        docutils==0.15.2 \
+        future==0.18.2 \
+        idna==2.8 \
+        imagesize==1.1.0 \
+        Jinja2==2.10.3 \
+        MarkupSafe==1.1.1 \
+        packaging==19.2 \
+        pbr==5.4.3 \
+        pycparser==2.19 \
+        Pygments==2.4.2 \
+        PyNaCl==1.3.0 \
+        pyparsing==2.4.4 \
+        python-dateutil==2.8.1 \
+        pytz==2019.3 \
+        retrying==1.3.3 \
+        six==1.13.0 \
+        snowballstemmer==2.0.0 \
+        sphinxcontrib-applehelp==1.0.1 \
+        sphinxcontrib-devhelp==1.0.1 \
+        sphinxcontrib-htmlhelp==1.0.2 \
+        sphinxcontrib-jsmath==1.0.1 \
+        sphinxcontrib-qthelp==1.0.2 \
+        sphinxcontrib-serializinghtml==1.1.3 \
+        urllib3==1.25.6
+
+# CSIT ARM workaround
+RUN pip3 install scipy==1.1.0
 
 # Configure locales
 #RUN localectl set-locale "en_US.UTF-8" \
@@ -315,33 +345,6 @@ RUN yum install -y --enablerepo=epel \
 RUN mkdir -p /tmp/dumps \
  && mkdir -p /var/cache/vpp/python \
  && mkdir -p /var/run/sshd
-
-# CSIT PIP pre-cache
-RUN pip install \
-        docopt==0.6.2 \
-        ecdsa==0.13 \
-        enum34==1.1.2 \
-        ipaddress==1.0.16 \
-        paramiko==1.16.0 \
-        pexpect==4.6.0 \
-        ptyprocess==0.6.0 \
-        pycrypto==2.6.1 \
-        pykwalify==1.5.0 \
-#        pypcap==1.1.5 \
-        python-dateutil==2.4.2 \
-        PyYAML==3.11 \
-        requests==2.9.1 \
-        robotframework==2.9.2 \
-        scapy==2.3.3 \
-        scp==0.10.2 \
-        six==1.12.0 \
-        dill==0.2.8.2 \
-        numpy==1.14.5 \
-        scipy==1.1.0
-
-# VPP PIP pre-cache
-RUN pip install \
-        aenum
 
 # SSH settings
 RUN echo 'root:Csit1234' | chpasswd \
