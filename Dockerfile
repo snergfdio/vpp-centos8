@@ -31,11 +31,12 @@ RUN echo uio_pci_generic >> /etc/modules
 
 ADD files/CentOS-AppStream.repo /etc/yum.repos.d/CentOS-AppStream.repo
 ADD files/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
-ADD files/epel.repo /etc/yum.repos.d/epel.repo
 
 #RUN yum update -y && yum install -y deltarpm && yum clean all
 #RUN yum update -y && yum install -y @base https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && yum clean all
 RUN yum update -y && yum install -y epel-release && yum clean all
+ADD files/epel.repo /etc/yum.repos.d/epel.repo
+
 RUN yum update -y && yum install -y --enablerepo=epel \
 	chrpath \
 	git \
