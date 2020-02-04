@@ -46,6 +46,7 @@ RUN yum update -y && yum install -y --enablerepo=epel \
 	unzip \
 	xz \
 	wget \
+	zile \
 	&& yum clean all
 
 #packer install
