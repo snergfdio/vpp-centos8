@@ -2,7 +2,7 @@ FROM centos:8
 MAINTAINER Ed Kern <ejk@cisco.com>
 LABEL Description="VPP centos8 OS build image" 
 LABEL Vendor="cisco.com" 
-LABEL Version="0.01"
+LABEL Version="0.02"
 
 # Setup the environment
 
@@ -162,7 +162,7 @@ RUN yum update -y && yum install -y --enablerepo=epel \
 	flex \
 	gcc-gfortran \
 	gettext-devel \
-#	glibc-static \
+	glibc \
 	intltool \
 #	nasm \
 	patchutils \
@@ -297,7 +297,7 @@ RUN pip3 install \
         sphinx-rtd-theme==0.4.0 \
         sphinxcontrib-programoutput==0.15 \
         sphinxcontrib-robotdoc==0.11.0 \
-	ply==3.11 \
+		ply==3.11 \
         alabaster==0.7.12 \
         Babel==2.7.0 \
         bcrypt==3.1.7 \
