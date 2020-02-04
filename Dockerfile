@@ -29,6 +29,8 @@ RUN echo "ServerAliveInterval 10"   | tee -a /etc/ssh/ssh_config #>/dev/null 2>&
 #module
 RUN echo uio_pci_generic >> /etc/modules
 
+ADD files/CentOS-AppStream.repo /etc/yum.repos.d/CentOS-AppStream.repo
+ADD files/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
 
 #RUN yum update -y && yum install -y deltarpm && yum clean all
 #RUN yum update -y && yum install -y @base https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && yum clean all
@@ -46,7 +48,7 @@ RUN yum update -y && yum install -y --enablerepo=epel \
 	unzip \
 	xz \
 	wget \
-	zile \
+	nano \
 	&& yum clean all
 
 #packer install
@@ -83,7 +85,7 @@ RUN yum update -y && yum install -y --enablerepo=epel \
 	yum-utils \
 	&& yum clean all
 
-RUN yum update -y && yum install -y --enablerepo=epel \
+RUN yum update -y && yum install -y \
 #       ganglia-devel \
 	libconfuse-devel \
 	mock \
