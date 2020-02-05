@@ -224,6 +224,17 @@ RUN yum update -y \
         yamllint \
 	&& yum clean all
 
+#centos8 
+RUN yum update -y \
+	&& yum install -y --enablerepo=epel \
+	compat-openssl10 \
+	python3-jsonschema \
+	selinux-policy \
+	selinux-policy-devel \
+	glibc-static \
+	ninja-build \
+	&& yum clean all
+
 # Python 2.7.13:
 # RUN wget http://python.org/ftp/python/2.7.13/Python-2.7.13.tar.xz \
 #     && tar xf Python-2.7.13.tar.xz \
