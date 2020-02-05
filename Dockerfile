@@ -225,7 +225,7 @@ RUN yum update -y \
 	&& yum clean all
 
 #centos8 
-RUN yum update -y \
+RUN dnf config-manager --set-enabled PowerTools \
 	&& yum install -y --enablerepo=epel \
 	compat-openssl10 \
 	python3-jsonschema \
