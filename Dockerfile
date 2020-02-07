@@ -168,6 +168,7 @@ RUN yum update -y && yum install -y --enablerepo=epel \
 	gcc-gfortran \
 	gettext-devel \
 	glibc \
+	glibc-langpack-en \
 	intltool \
 #	nasm \
 	patchutils \
@@ -211,17 +212,17 @@ RUN yum update -y \
 	xz-devel \
 	expat-devel \
 	wget \
-        clang \
-        llvm \
-        numactl-devel \
-        check-devel \
-        check \
-        boost \
-        boost-devel \
-        mbedtls-devel \
-        xmlstarlet \
-#       centos-release-scl \
-        yamllint \
+    clang \
+    llvm \
+    numactl-devel \
+    check-devel \
+    check \
+    boost \
+    boost-devel \
+    mbedtls-devel \
+    xmlstarlet \
+#   centos-release-scl \
+    yamllint \
 	&& yum clean all
 
 #centos8 
@@ -262,7 +263,7 @@ RUN mkdir -p /w/Downloads
 
 ADD files/lf-update-java-alternatives /usr/local/bin/lf-update-java-alternatives
 RUN chmod 755 /usr/local/bin/lf-update-java-alternatives
-RUN curl -s https://packagecloud.io/install/repositories/fdio/master/script.rpm.sh | sudo bash
+#RUN curl -s https://packagecloud.io/install/repositories/fdio/master/script.rpm.sh | sudo bash
 
 # CSIT requirements
 RUN dnf config-manager --set-enabled PowerTools \
